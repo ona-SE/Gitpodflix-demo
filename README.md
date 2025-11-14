@@ -148,7 +148,7 @@ Expected output:
 ├── backend/catalog/   # Node.js API service
 ├── database/main/     # PostgreSQL setup and migrations
 ├── .devcontainer/     # Development container configuration
-├── .gitpod/          # Gitpod automation configuration
+├── .ona/             # Ona automation configuration
 ├── startup.sh        # 🚀 Service startup script
 ├── health-check.sh   # 🔍 Health monitoring script
 └── README.md         # This file
@@ -358,7 +358,7 @@ This includes:
 
 ### Automations
 
-Your team have configured automations in `.gitpod/automations.yaml`.
+Your team have configured automations in `.ona/automations.yaml`.
 
 Here's a simplified version of how that looks:
 
