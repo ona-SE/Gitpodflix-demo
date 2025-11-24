@@ -1,0 +1,22 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: frontend
+  description: React frontend application for Gitpod Flix streaming platform
+  tags:
+    - react
+    - typescript
+    - vite
+    - tailwindcss
+    - frontend
+  annotations:
+    github.com/project-slug: gitpod-samples/gitpodflix-demo
+spec:
+  type: website
+  lifecycle: production
+  owner: team-platform
+  system: gitpodflix
+  consumesApis:
+    - catalog-api
+  dependsOn:
+    - component:catalog-service

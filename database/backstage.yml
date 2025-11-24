@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: database-service
+  description: PostgreSQL database with full-text search for movie catalog
+  tags:
+    - postgresql
+    - database
+    - docker
+  annotations:
+    github.com/project-slug: gitpod-samples/gitpodflix-demo
+spec:
+  type: database
+  lifecycle: production
+  owner: team-platform
+  system: gitpodflix

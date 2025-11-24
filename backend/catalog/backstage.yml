@@ -1,0 +1,50 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: catalog-service
+  description: Catalog service for Gitpod Flix
+  tags:
+    - nodejs
+    - express
+    - typescript
+    - api
+  annotations:
+    github.com/project-slug: gitpod-samples/gitpodflix-demo
+spec:
+  type: service
+  lifecycle: production
+  owner: team-platform
+  system: gitpodflix
+  providesApis:
+    - catalog-api
+  dependsOn:
+    - component:database-service
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: catalog-api
+  description: REST API for movie catalog operations
+spec:
+  type: openapi
+  lifecycle: production
+  owner: team-platform
+  system: gitpodflix
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: Catalog API
+      version: 1.0.0
+    paths:
+      /api/movies:
+        get:
+          summary: Get all movies
+      /api/search:
+        get:
+          summary: Search movies with filters
+      /api/suggestions:
+        get:
+          summary: Get search suggestions
+      /health:
+        get:
+          summary: Service health check
