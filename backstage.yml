@@ -1,0 +1,22 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: gitpodflix
+  description: Modern streaming platform demo showcasing full-stack development in Gitpod
+  tags:
+    - streaming
+    - demo
+    - full-stack
+  annotations:
+    github.com/project-slug: gitpod-samples/gitpodflix-demo
+spec:
+  owner: team-platform
+  domain: media
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: media
+  description: Media and streaming services domain
+spec:
+  owner: team-platform
