@@ -371,7 +371,7 @@ services:
     commands:
       start: |
         cd /workspaces/gitpodflix-demo/frontend
-        PORT=3001 npx nodemon src/index.ts
+        PORT=3001 npm run dev
 
 tasks:
   seedDatabase:

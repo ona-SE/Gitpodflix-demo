@@ -1,6 +1,10 @@
 # syntax=docker/dockerfile:1.4
 FROM mcr.microsoft.com/devcontainers/typescript-node:20-bullseye
 
+# Disable npm lifecycle scripts for security
+RUN npm config set ignore-scripts true --location=user && \
+    echo 'ignore-scripts true' >> ~/.yarnrc
+
 # Install system dependencies in a single layer
 RUN apt-get update && apt-get install -y --no-install-recommends \
     postgresql-client \
@@ -22,8 +26,8 @@ COPY backend/catalog/package*.json ./backend/catalog/
 
 # Install dependencies using BuildKit cache
 RUN --mount=type=cache,target=/root/.npm \
-    cd frontend && npm ci --prefer-offline --no-audit --no-fund && \
-    cd ../backend/catalog && npm ci --prefer-offline --no-audit --no-fund
+    cd frontend && npm ci --prefer-offline --no-audit --no-fund --ignore-scripts && \
+    cd ../backend/catalog && npm ci --prefer-offline --no-audit --no-fund --ignore-scripts
 
 # Copy the rest of the application
 COPY . .
