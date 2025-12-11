@@ -14,9 +14,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Set working directory
 WORKDIR /workspaces/gitpodflix
 
-# Install global dependencies first
-RUN npm install -g nodemon
-
 # Create directories for package files
 RUN mkdir -p frontend backend/catalog
 
