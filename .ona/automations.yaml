@@ -88,7 +88,7 @@ services:
         
         # Ensure dependencies are installed
         echo "Installing dependencies..."
-        npm install
+        npm ci --ignore-scripts
         
         # Wait for PostgreSQL to be ready before starting
         echo "Waiting for PostgreSQL to be ready..."
@@ -142,7 +142,7 @@ services:
 
         # Install dependencies
         echo "Installing frontend dependencies..."
-        npm install
+        npm ci --ignore-scripts
 
         # Wait for backend to be ready before starting frontend
         echo "Waiting for backend API to be ready..."
