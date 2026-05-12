@@ -12,7 +12,7 @@ const port = process.env.PORT || 3001;
 const pool = new Pool({
   user: process.env.DB_USER || 'gitpod',
   host: process.env.DB_HOST || 'localhost',
-  database: process.env.DB_NAME || 'gitpodflix',
+  database: process.env.DB_NAME || 'onaflix',
   password: process.env.DB_PASSWORD || 'gitpod',
   port: parseInt(process.env.DB_PORT || '5432'),
 });

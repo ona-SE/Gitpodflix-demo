@@ -21,7 +21,7 @@ To create a pull request for dependency updates, you can run:
 export RENOVATE_TOKEN=$GH_CLI_TOKEN
 
 # Run Renovate to scan and create pull requests
-renovate --platform=github gitpod-samples/gitpodflix-demo
+renovate --platform=github ona-SE/Gitpodflix-demo
 ```
 
 This will:
