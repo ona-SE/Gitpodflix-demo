@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
-WORKDIR /workspaces/gitpodflix
+WORKDIR /workspaces/onaflix
 
 # Create directories for package files
 RUN mkdir -p frontend backend/catalog

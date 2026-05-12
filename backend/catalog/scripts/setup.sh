@@ -9,7 +9,7 @@ if [ ! -f .env ]; then
 PORT=3001
 DB_USER=gitpod
 DB_HOST=localhost
-DB_NAME=gitpodflix
+DB_NAME=onaflix
 DB_PASSWORD=gitpod
 DB_PORT=5432
 EOL

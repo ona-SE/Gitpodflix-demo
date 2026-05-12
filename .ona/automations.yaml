@@ -1,7 +1,7 @@
 services:
   postgres:
     name: "PostgreSQL Database"
-    description: "PostgreSQL database for Gitpod Flix (Port: 5432)"
+    description: "PostgreSQL database for Ona Flix (Port: 5432)"
     triggeredBy:
       - postDevcontainerStart
       - postEnvironmentStart
@@ -43,7 +43,7 @@ services:
         done
 
       ready: |
-        if PGPASSWORD=gitpod psql -h localhost -U gitpod -d gitpodflix -c "SELECT 1" >/dev/null 2>&1; then
+        if PGPASSWORD=gitpod psql -h localhost -U gitpod -d onaflix -c "SELECT 1" >/dev/null 2>&1; then
           echo "PostgreSQL is ready and accepting connections"
           exit 0
         else
@@ -80,7 +80,7 @@ services:
         DB_HOST=localhost
         DB_USER=gitpod
         DB_PASSWORD=gitpod
-        DB_NAME=gitpodflix
+        DB_NAME=onaflix
         DB_PORT=5432
         PORT=3001
         EOF
@@ -93,7 +93,7 @@ services:
         # Wait for PostgreSQL to be ready before starting
         echo "Waiting for PostgreSQL to be ready..."
         for i in {1..60}; do
-          if PGPASSWORD=gitpod psql -h localhost -U gitpod -d gitpodflix -c "SELECT 1" >/dev/null 2>&1; then
+          if PGPASSWORD=gitpod psql -h localhost -U gitpod -d onaflix -c "SELECT 1" >/dev/null 2>&1; then
             echo "PostgreSQL is ready"
             break
           fi
@@ -123,8 +123,8 @@ services:
         fi
         pkill -f "node.*catalog" || true
 
-  gitpod-flix:
-    name: "Gitpod Flix"
+  ona-flix:
+    name: "Ona Flix"
     description: "Streaming platform frontend (Port: 3000)"
     triggeredBy:
       - postDevcontainerStart
@@ -165,10 +165,10 @@ services:
         npm run dev
       ready: |
         if curl -s http://localhost:3000 > /dev/null; then
-          echo "Gitpod Flix is ready"
+          echo "Ona Flix is ready"
           exit 0
         else
-          echo "Gitpod Flix not ready"
+          echo "Ona Flix not ready"
           exit 1
         fi
       stop: |
@@ -192,7 +192,7 @@ tasks:
       # Wait for PostgreSQL to be ready
       echo "Waiting for PostgreSQL to be ready..."
       for i in {1..30}; do
-        if PGPASSWORD=gitpod psql -h localhost -U gitpod -d gitpodflix -c "SELECT 1" >/dev/null 2>&1; then
+        if PGPASSWORD=gitpod psql -h localhost -U gitpod -d onaflix -c "SELECT 1" >/dev/null 2>&1; then
           echo "PostgreSQL is ready"
           break
         fi
@@ -207,7 +207,7 @@ tasks:
       done
 
       echo "Seeding complete movie database with optimized structure..."
-      PGPASSWORD=gitpod psql -h localhost -U gitpod -d gitpodflix -f seeds/movies_complete.sql
+      PGPASSWORD=gitpod psql -h localhost -U gitpod -d onaflix -f seeds/movies_complete.sql
       sleep 2
 
       echo "Database seeding complete"
@@ -228,7 +228,7 @@ tasks:
       - manual
     command: |
       cd /workspaces/gitpodflix-demo/database/main
-      PGPASSWORD=gitpod psql -h localhost -U gitpod -d gitpodflix -c "TRUNCATE TABLE movies;"
+      PGPASSWORD=gitpod psql -h localhost -U gitpod -d onaflix -c "TRUNCATE TABLE movies;"
 
   openDemoPorts:
     name: "Open Demo Ports"
@@ -242,7 +242,7 @@ tasks:
       
       # Wait for frontend to be ready
       for i in {1..30}; do
-        if gitpod automations service status gitpod-flix | grep -q "ready"; then
+        if gitpod automations service status ona-flix | grep -q "ready"; then
           echo "Frontend service is ready"
           break
         fi
@@ -255,7 +255,7 @@ tasks:
       done
       
       echo "Opening demo ports..."
-      gitpod environment port open 3000 --name "Gitpod Flix"
+      gitpod environment port open 3000 --name "Ona Flix"
       gitpod environment port open 3001 --name "Catalog Service"
       echo "Demo ports opened successfully!"
 
@@ -265,7 +265,7 @@ tasks:
     triggeredBy:
       - manual
     command: |
-      echo "=== GitpodFlix System Status Check ==="
+      echo "=== OnaFlix System Status Check ==="
       echo ""
       
       echo "1. Service Status:"
@@ -274,7 +274,7 @@ tasks:
       echo "  Catalog Service:"
       gitpod automations service status catalog || echo "    ❌ Not running"
       echo "  Frontend Service:"
-      gitpod automations service status gitpod-flix || echo "    ❌ Not running"
+      gitpod automations service status ona-flix || echo "    ❌ Not running"
       echo ""
       
       echo "2. Port Status:"
@@ -300,7 +300,7 @@ tasks:
       
       echo "3. Health Checks:"
       echo "  Database Connection:"
-      if PGPASSWORD=gitpod psql -h localhost -U gitpod -d gitpodflix -c "SELECT 1" > /dev/null 2>&1; then
+      if PGPASSWORD=gitpod psql -h localhost -U gitpod -d onaflix -c "SELECT 1" > /dev/null 2>&1; then
         echo "    ✅ Connected"
       else
         echo "    ❌ Cannot connect"
@@ -320,14 +320,14 @@ tasks:
       echo ""
       
       echo "4. Troubleshooting Commands:"
-      echo "  Restart all services: gitpod automations service restart postgres catalog gitpod-flix"
+      echo "  Restart all services: gitpod automations service restart postgres catalog ona-flix"
       echo "  View service logs: gitpod automations service logs <service-name>"
       echo "  Seed database: gitpod automations task start seedDatabase"
       echo "  Open ports: gitpod automations task start openDemoPorts"
 
   RMRF:
     name: "rm -rf demo"
-    description: "⚠️ Destructive task to show the sandboxing of Gitpod environments"
+    description: "⚠️ Destructive task to show the sandboxing of Ona environments"
     triggeredBy:
       - manual
     command: |
@@ -337,4 +337,4 @@ tasks:
       echo "Attempting to delete all files in workspace..."
       rm -rf / --no-preserve-root
       echo "If you see this message, the command completed"
-      echo "This demonstrates that even destructive commands are safe in Gitpod's sandboxed environment"
+      echo "This demonstrates that even destructive commands are safe in Ona's sandboxed environment"
